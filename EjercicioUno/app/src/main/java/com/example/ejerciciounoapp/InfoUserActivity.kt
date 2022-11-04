@@ -73,11 +73,11 @@ class InfoUserActivity : AppCompatActivity() {
     fun calculateSigneChines(year:Int){
         val signes = listOf("Rata", "Buey", "Tigre", "Conejo", "Dragon", "Serpiente", "Caballo","Cabra","Mono", "Gallo", "Perro", "Cerdo")
         var pos = 0
-        for(my in 1961..year){
+        for(my in 1960..year){
             pos++
             if(pos == 12) pos = 0
         }
-        val signe = signes.get(pos)
+        val signe = signes.get(pos-1)
         Toast.makeText(this,signe, Toast.LENGTH_SHORT).show()
 
         when(signe){
@@ -88,7 +88,7 @@ class InfoUserActivity : AppCompatActivity() {
             tvChinese.text = getString(R.string.signe_chino, signe)
             imageChines.setImageDrawable(getDrawable(R.drawable.buey))
 
-            }"Trigre" ->{
+            }"Tigre" ->{
             tvChinese.text = getString(R.string.signe_chino, signe)
             imageChines.setImageDrawable(getDrawable(R.drawable.tigre))
 

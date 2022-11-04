@@ -116,13 +116,13 @@
                     android:layout_weight="0.7"
                     android:padding="10dp"
                     android:inputType="number"
-                    android:autofillHints="phone"
                     android:textSize="15sp"
                     android:maxLength="9"
                     android:textColor="@color/black"
                     android:fontFamily="@font/barlow_regular"
                     android:background="@drawable/background_edit_unselected"
-                    tools:ignore="LabelFor" />
+                    tools:ignore="LabelFor"
+                        android:importantForAutofill="no" />
             </LinearLayout>
 
             <LinearLayout

@@ -43,28 +43,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun verifyData():Boolean{
-//        if(editName.text.isEmpty()){
-//            editName.error = getString(R.string.completa_el_campo)
-//            editName.requestFocus()
-//            return false
-//        }
-//
-//        if(tvDate.text.isEmpty()){
-//            tvDate.requestFocus()
-//            Toast.makeText(this, getString(R.string.completa_el_campo), Toast.LENGTH_LONG).show()
-//            return false
-//        }else if(!dateIsCorrect()){
-//            tvDate.requestFocus()
-//            Toast.makeText(this, getString(R.string.invalid_date), Toast.LENGTH_LONG).show()
-//            return false
-//        }
-//
-//        if(editNumCount.text.length < 9){
-//            editNumCount.error = getString(R.string.invalid_digits)
-//            Toast.makeText(this, getString(R.string.invalid_digits), Toast.LENGTH_LONG).show()
-//            editNumCount.requestFocus()
-//            return false
-//        }
+        if(editName.text.isEmpty()){
+            editName.error = getString(R.string.completa_el_campo)
+            editName.requestFocus()
+            return false
+        }
+
+        if(tvDate.text.isEmpty()){
+            tvDate.requestFocus()
+            Toast.makeText(this, getString(R.string.completa_el_campo), Toast.LENGTH_LONG).show()
+            return false
+        }else if(!dateIsCorrect()){
+            tvDate.requestFocus()
+            Toast.makeText(this, getString(R.string.invalid_date), Toast.LENGTH_LONG).show()
+            return false
+        }
+
+        if(editNumCount.text.length < 9){
+            editNumCount.error = getString(R.string.invalid_digits)
+            Toast.makeText(this, getString(R.string.invalid_digits), Toast.LENGTH_LONG).show()
+            editNumCount.requestFocus()
+            return false
+        }
 
 //        if(validatingEmail()){
 //            Toast.makeText(this, getString(R.string.invalid_email), Toast.LENGTH_LONG).show()
