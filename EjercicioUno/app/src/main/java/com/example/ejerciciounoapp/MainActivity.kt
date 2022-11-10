@@ -1,18 +1,30 @@
 package com.example.ejerciciounoapp
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Editable
-import android.widget.Toast
+import android.view.Gravity
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast.LENGTH_LONG
 import androidx.appcompat.app.AppCompatActivity
+import com.realpacific.clickshrinkeffect.applyClickShrink
 import com.takisoft.datetimepicker.DatePickerDialog
 import com.takisoft.datetimepicker.widget.DatePicker
+import com.vdx.designertoast.DesignerToast
+import kotlinx.android.synthetic.main.activity_info_user.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.tvDate
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.setEventListener
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,9 +37,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun listeners() {
+        btnVerify.applyClickShrink()
         tvDate.setOnClickListener{ showDatePicker() }
+
         btnVerify.setOnClickListener{
             if(verifyData()){
+                hideKeyboard(this)
+                mprogress.visibility = View.VISIBLE
                 val parmetros= Bundle()
                 parmetros.putString("date",mBDate)
                 parmetros.putString("numCount",editNumCount.text.toString())
@@ -37,53 +53,96 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this, InfoUserActivity::class.java).apply {
                     putExtras(parmetros)
                 }
-                startActivity(intent)
+                object : CountDownTimer(3000, 1000) {
+                    override fun onTick(millisUntilFinished: Long) {}
+                    override fun onFinish() {
+                        startActivity(intent)
+                        mprogress.visibility = View.GONE
+                    }
+                }.start()
+
             }
         }
     }
 
+
+    fun hideKeyboard(activity: Activity) {
+        val imm = activity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        var view = activity.currentFocus
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
     private fun verifyData():Boolean{
+
         if(editName.text.isEmpty()){
-            editName.error = getString(R.string.completa_el_campo)
+            editName.error = getString(R.string.empty)
             editName.requestFocus()
+            DesignerToast.Warning(this, getString(R.string.info), getString(R.string.completa_el_campo),
+                Gravity.TOP, LENGTH_LONG,null)
             return false
         }
 
         if(tvDate.text.isEmpty()){
             tvDate.requestFocus()
-            Toast.makeText(this, getString(R.string.completa_el_campo), Toast.LENGTH_LONG).show()
+            DesignerToast.Warning(this, getString(R.string.info), getString(R.string.completa_el_campo),
+                Gravity.TOP, LENGTH_LONG,null)
             return false
         }else if(!dateIsCorrect()){
             tvDate.requestFocus()
-            Toast.makeText(this, getString(R.string.invalid_date), Toast.LENGTH_LONG).show()
+            DesignerToast.Error(this,getString(R.string.info), getString(R.string.invalid_date),
+                Gravity.TOP, LENGTH_LONG,null)
             return false
         }
 
-        if(editNumCount.text.length < 9){
-            editNumCount.error = getString(R.string.invalid_digits)
-            Toast.makeText(this, getString(R.string.invalid_digits), Toast.LENGTH_LONG).show()
-            editNumCount.requestFocus()
+       if(editNumCount.text.isNotEmpty()){
+           if(editNumCount.text.length < 9){
+               editNumCount.error = getString(R.string.empty)
+               editNumCount.requestFocus()
+               DesignerToast.Error(this,getString(R.string.info), getString(R.string.invalid_digits),
+                   Gravity.TOP, LENGTH_LONG,null)
+               return false
+           }
+       }else{
+           DesignerToast.Warning(this, getString(R.string.info), getString(R.string.completa_el_campo),
+               Gravity.TOP, LENGTH_LONG,null)
+           return false
+       }
+
+        if(!validatingEmail()){
             return false
         }
-
-//        if(validatingEmail()){
-//            Toast.makeText(this, getString(R.string.invalid_email), Toast.LENGTH_LONG).show()
-//            editEmail.error = ""
-//            editEmail.requestFocus()
-//            return false
-//        }
 
         return true
     }
 
+
     private fun validatingEmail(): Boolean {
-        return if (editEmail.text.isNotEmpty()){
-            val reg_Expression =
-                "^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]|[\\w-]{2,}))@" + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?" + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\." + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?" + "[0-9]{1,2}|25[0-5]|2[0-4][0-9]))|" + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$"
-            editEmail.text.matches(regex = reg_Expression.toRegex())
-        }else{
-            editEmail.error = getString(R.string.completa_el_campo)
-            editEmail.requestFocus()
+        return if (editEmail.text.isNotEmpty()) {
+            val regExpn = ("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]|[\\w-]{2,}))@"
+                    + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                    + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                    + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                    + "[0-9]{1,2}|25[0-5]|2[0-4][0-9]))|"
+                    + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$")
+            if (!editEmail.getText().toString().matches(regExpn.toRegex())) {
+                if (editEmail.getText().toString().contains(".mx")) {
+                    true
+                } else {
+                    //toast
+                    DesignerToast.Error(this, getString(R.string.info), getString(R.string.invalid_email),
+                        Gravity.TOP, LENGTH_LONG,null)
+                    editEmail.requestFocus()
+                    false
+                }
+            } else {
+                true
+            }
+        } else {
+            DesignerToast.Warning(this, getString(R.string.info), getString(R.string.completa_el_campo),
+                Gravity.TOP, LENGTH_LONG,null)
             false
         }
     }
@@ -94,11 +153,6 @@ class MainActivity : AppCompatActivity() {
         var aDate = Calendar.getInstance().time
         val sADate = dateToString(aDate)
         aDate = stringToDate(sADate)
-        if(mDate < aDate){
-            Toast.makeText(this, "Valido", Toast.LENGTH_SHORT).show()
-        }else{
-            Toast.makeText(this, "Invalido", Toast.LENGTH_SHORT).show()
-        }
         return mDate < aDate
     }
 

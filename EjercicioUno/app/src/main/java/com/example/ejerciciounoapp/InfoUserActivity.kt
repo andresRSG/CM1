@@ -78,7 +78,6 @@ class InfoUserActivity : AppCompatActivity() {
             if(pos == 12) pos = 0
         }
         val signe = signes.get(pos-1)
-        Toast.makeText(this,signe, Toast.LENGTH_SHORT).show()
 
         when(signe){
             "Rata" ->{

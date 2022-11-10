@@ -6,10 +6,14 @@
     <string name="numero_de_cuenta">Numero de Cuenta</string>
     <string name="correo">Correo</string>
     <string name="comprobar">Comprobar</string>
-    <string name="completa_el_campo">Completa el Campo</string>
+    <string name="completa_el_campo">Llena todos los campos</string>
     <string name="invalid_email">Correo inválido. Revise que su correo se encuentre escrito correctamente y vuelva a intentar.</string>
-    <string name="invalid_digits">10 digitos</string>
-    <string name="invalid_date">"Fecha invalida"</string>
+    <string name="invalid_digits">El número de cuenta debe ser de 9 digitos</string>
+    <string name="invalid_date">"Fecha inválida"</string>
+    <string name="info">"Info"</string>
+    <string name="empty"/>
+
+
 
     <string name="age_single">Tu edad es de 1 año</string>
     <string name="age_plu">Tu edad es de %d años</string>
