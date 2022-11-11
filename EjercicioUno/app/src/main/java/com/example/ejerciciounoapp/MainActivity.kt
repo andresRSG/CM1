@@ -51,6 +51,8 @@ class MainActivity : AppCompatActivity() {
         dpd = DatePickerDialog(this@MainActivity,
             { _: DatePicker?, _: Int, _: Int, _: Int -> }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE)
         )
+
+
         //listeners events
         listeners()
     }
@@ -100,6 +102,7 @@ class MainActivity : AppCompatActivity() {
                     override fun onTick(millisUntilFinished: Long) {}
                     override fun onFinish() {
                         startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
                         mprogress.visibility = View.GONE
                     }
                 }.start()
@@ -285,6 +288,7 @@ class MainActivity : AppCompatActivity() {
         tvDate.text = personInfo.birthday
         editNumCount.setText(personInfo.noCount)
         editEmail.setText(personInfo.email)
+        mBDate = personInfo.birthday
 
     }
 

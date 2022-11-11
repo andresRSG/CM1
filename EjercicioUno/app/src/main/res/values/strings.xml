@@ -8,6 +8,7 @@
     <string name="correo">Correo</string>
     <string name="comprobar">Comprobar</string>
     <string name="completa_el_campo">Llena todos los campos</string>
+    <string name="signe_no_found">No  es posible calcular su signo chino</string>
     <string name="invalid_email">Correo inválido. Revise que su correo se encuentre escrito correctamente y vuelva a intentar.</string>
     <string name="invalid_digits">El número de cuenta debe ser de 9 digitos</string>
     <string name="invalid_date">"Fecha inválida"</string>

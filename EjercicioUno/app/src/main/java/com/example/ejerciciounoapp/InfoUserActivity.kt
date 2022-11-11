@@ -2,8 +2,10 @@ package com.example.ejerciciounoapp
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.vdx.designertoast.DesignerToast
 import kotlinx.android.synthetic.main.activity_info_user.*
 import java.time.Year
 import java.util.*
@@ -77,7 +79,15 @@ class InfoUserActivity : AppCompatActivity() {
             pos++
             if(pos == 12) pos = 0
         }
-        val signe = signes.get(pos-1)
+        var signe = ""
+        try {
+            signe = signes.get(pos-1)
+        }catch (e:java.lang.Exception){
+            e.printStackTrace()
+            DesignerToast.Info(this, getString(R.string.info), getString(R.string.signe_no_found),
+                Gravity.TOP, Toast.LENGTH_LONG,null)
+            return
+        }
 
         when(signe){
             "Rata" ->{
