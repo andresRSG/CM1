@@ -55,6 +55,11 @@ dependencies {
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     //keyboard
     implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3'
+    //Scanner
+    implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
+    /* Gson parse */
+    implementation 'com.google.code.gson:gson:2.8.6'
+
 
 
 

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">EjercicioUnoApp</string>
     <string name="formulario">Formulario</string>
+    <string name="signes">Signos</string>
     <string name="Nombre">Nombre</string>
     <string name="fecha_de_nacimiento">Fecha de Nacimiento</string>
     <string name="numero_de_cuenta">Numero de Cuenta</string>
@@ -11,8 +12,7 @@
     <string name="invalid_digits">El número de cuenta debe ser de 9 digitos</string>
     <string name="invalid_date">"Fecha inválida"</string>
     <string name="info">"Info"</string>
-    <string name="empty"/>
-
+    <string name="empty" />
 
 
     <string name="age_single">Tu edad es de 1 año</string>
@@ -32,8 +32,6 @@
 
     <string name="signe_zodiacal">Signo Zodiacal: %s</string>
     <string name="signe_chino">Signo Chino: %s</string>
-
-
 
 
 </resources>

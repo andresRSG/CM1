@@ -176,6 +176,16 @@
                 android:layout_marginTop="20dp"
                 />
 
+            <ImageView
+                android:id="@+id/imageQr"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_qr"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:contentDescription="@string/empty" />
+
+
         </LinearLayout>
     </ScrollView>
 
@@ -210,6 +220,14 @@
                 />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+            android:id="@+id/frameQR"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:elevation="3dp">
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

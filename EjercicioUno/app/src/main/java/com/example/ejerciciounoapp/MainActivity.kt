@@ -3,14 +3,22 @@ package com.example.ejerciciounoapp
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.view.Gravity
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import com.google.gson.Gson
 import com.realpacific.clickshrinkeffect.applyClickShrink
 import com.takisoft.datetimepicker.DatePickerDialog
 import com.takisoft.datetimepicker.widget.DatePicker
@@ -18,8 +26,6 @@ import com.vdx.designertoast.DesignerToast
 import kotlinx.android.synthetic.main.activity_info_user.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.tvDate
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.setEventListener
-import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -30,25 +36,62 @@ class MainActivity : AppCompatActivity() {
 
     var mBDate = ""
 
+    public var isFragmentShow = false
+    lateinit var dpd : DatePickerDialog
+
+    val PERMISSION_CAMERA_USER = android.Manifest.permission.CAMERA
+    private val requestPermissionCamera = 100
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //initializing datePicker
+        val cal = Calendar.getInstance()
+        dpd = DatePickerDialog(this@MainActivity,
+            { _: DatePicker?, _: Int, _: Int, _: Int -> }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE)
+        )
+        //listeners events
         listeners()
     }
 
+    @Override
+    override fun onResume(){
+        super.onResume()
+        mprogress.visibility = View.GONE
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+    }
+
+    override fun onBackPressed() {
+        if(isFragmentShow){
+            supportFragmentManager.findFragmentById(R.id.frameQR)?.let {
+                supportFragmentManager.beginTransaction().remove(it).commit()
+            }
+            isFragmentShow = false
+        }else{
+            super.onBackPressed()
+        }
+    }
+
+
+
+
     private fun listeners() {
         btnVerify.applyClickShrink()
-        tvDate.setOnClickListener{ showDatePicker() }
+        tvDate.setOnClickListener{
+            if(!dpd.isShowing) showDatePicker() }
 
         btnVerify.setOnClickListener{
             if(verifyData()){
                 hideKeyboard(this)
                 mprogress.visibility = View.VISIBLE
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 val parmetros= Bundle()
                 parmetros.putString("date",mBDate)
                 parmetros.putString("numCount",editNumCount.text.toString())
                 parmetros.putString("email", editEmail.text.toString())
                 parmetros.putString("name",editName.text.toString())
+
 
                 val intent = Intent(this, InfoUserActivity::class.java).apply {
                     putExtras(parmetros)
@@ -62,6 +105,10 @@ class MainActivity : AppCompatActivity() {
                 }.start()
 
             }
+        }
+
+        imageQr.setOnClickListener{
+            getPictureFromCameraAskingPermissions()
         }
     }
 
@@ -159,12 +206,8 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("DefaultLocale")
     private fun showDatePicker() {
-
-        val cal = Calendar.getInstance()
-        val dpd = DatePickerDialog(this@MainActivity,
-            { _: DatePicker?, _: Int, _: Int, _: Int -> }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE)
-        )
         dpd.show()
+
         dpd.setOnDateSetListener { view, year, month, dayOfMonth ->
             tvDate.text =
                 Editable.Factory.getInstance().newEditable("${dayOfMonth}/${month + 1}/${year}")
@@ -188,5 +231,61 @@ class MainActivity : AppCompatActivity() {
         return dateFormat.format(date)
     }
 
+    private fun getPictureFromCameraAskingPermissions(){
+        // Add permission to manifest
+        //Check camera permission
+        if (ContextCompat.checkSelfPermission(this, PERMISSION_CAMERA_USER) != PackageManager.PERMISSION_GRANTED){
+            //If not previously accepted
+            ActivityCompat.requestPermissions(this, arrayOf(PERMISSION_CAMERA_USER), requestPermissionCamera)
+        }else{
+            //If previously accepted
+            //show QR
+            showFragment()
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode){
+            requestPermissionCamera ->{
+                if(grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    //Permit accepted
+                    //show QR
+                    showFragment()
+                }else{
+                    //Permit denied
+                    //onBackPressed
+                    Toast.makeText(this, "No puedes tomar una foto si no aceptas los permisos ", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+    }
+
+    private fun showFragment(){
+        val scannerQRFragment = ScannerQRFragment()
+        val fragmentManager: FragmentManager = supportFragmentManager
+        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frameQR, scannerQRFragment).commit()
+        isFragmentShow = true
+    }
+
+
+
+    public fun fillData(text:String){
+        isFragmentShow = false
+
+        val gson = Gson()
+        val personInfo: PersonInfo = gson.fromJson(text, PersonInfo::class.java)
+        supportFragmentManager.findFragmentById(R.id.frameQR)?.let {
+            supportFragmentManager.beginTransaction().remove(it).commit()
+        };
+
+        editName.setText(personInfo.name)
+        tvDate.text = personInfo.birthday
+        editNumCount.setText(personInfo.noCount)
+        editEmail.setText(personInfo.email)
+
+    }
 
 }
