@@ -15,6 +15,8 @@ class InfoUserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInfoUserBinding.inflate(layoutInflater)
+//        overridePendingTransition(R.anim.slide_in_right, R.anim.hold)
+
         setContentView(binding.root)
 
 
@@ -202,4 +204,10 @@ class InfoUserActivity : AppCompatActivity() {
                 }
             }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.hold, R.anim.out_anim)
+    }
+
 }

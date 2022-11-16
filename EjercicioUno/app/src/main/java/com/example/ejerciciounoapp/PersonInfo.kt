@@ -4,6 +4,6 @@ class PersonInfo {
     var name:String = ""
     var birthday:String = ""
     var noCount:String = ""
-    final var email:String = ""
+    var email:String = ""
 
 }

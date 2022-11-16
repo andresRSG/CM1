@@ -2,6 +2,7 @@ package com.example.ejerciciounoapp
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -18,6 +19,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.example.ejerciciounoapp.databinding.ActivityMainBinding
 import com.google.gson.Gson
 import com.realpacific.clickshrinkeffect.applyClickShrink
@@ -37,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    public var isFragmentShow = false
+    var isFragmentShow = false
     lateinit var dpd : DatePickerDialog
 
     val PERMISSION_CAMERA_USER = android.Manifest.permission.CAMERA
@@ -46,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        overridePendingTransition(R.anim.slide_out_left, R.anim.hold)
         setContentView(binding.root)
 
         //initializing datePicker
@@ -104,7 +107,8 @@ class MainActivity : AppCompatActivity() {
                     override fun onTick(millisUntilFinished: Long) {}
                     override fun onFinish() {
                         startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
+                        Animatoo.animateZoom(this@MainActivity)
+//                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
                         binding.mprogress.visibility = View.GONE
                     }
                 }.start()
