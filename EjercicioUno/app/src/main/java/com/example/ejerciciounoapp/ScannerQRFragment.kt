@@ -38,7 +38,6 @@ import com.budiyev.android.codescanner.*
         codeScanner.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
             this.activity.fillData(it.text)
-
             }
         }
         scannerView.setOnClickListener {

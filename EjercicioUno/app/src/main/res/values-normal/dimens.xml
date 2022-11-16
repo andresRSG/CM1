@@ -2,5 +2,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- button -->
     <dimen name="textSizeTextViewN" tools:ignore="MissingDefaultResource">15sp</dimen>
+    <dimen name="textSizeTextViewT" tools:ignore="MissingDefaultResource">15sp</dimen>
 
 </resources>

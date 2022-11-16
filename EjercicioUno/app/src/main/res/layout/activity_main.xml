@@ -18,7 +18,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
+                    android:textSize="@dimen/textSizeTextViewT"
                 android:text="@string/formulario"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -44,6 +44,7 @@
                     android:fontFamily="@font/barlow_regular"
                     android:text="@string/Nombre"
                     android:gravity="center_vertical"
+                    android:textSize="@dimen/textSizeTextViewN"
                     />
 
                 <EditText
@@ -55,7 +56,7 @@
                     android:inputType="textPersonName"
                     android:autofillHints="name"
                     android:maxLines="1"
-                    android:textSize="15sp"
+                        android:textSize="@dimen/textSizeTextViewN"
                     android:textColor="@color/black"
                     android:fontFamily="@font/barlow_regular"
                     android:background="@drawable/background_edit_unselected"
@@ -77,7 +78,9 @@
                     android:fontFamily="@font/barlow_regular"
                     android:text="@string/fecha_de_nacimiento"
                     android:gravity="center_vertical"
-                    />
+                        android:textSize="@dimen/textSizeTextViewN"
+
+                        />
 
                 <TextView
                     android:id="@+id/tvDate"
@@ -85,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
                     android:padding="10dp"
-                    android:textSize="15sp"
+                        android:textSize="@dimen/textSizeTextViewN"
                     android:textColor="@color/black"
                     android:fontFamily="@font/barlow_regular"
                     android:background="@drawable/background_edit_unselected"
@@ -109,7 +112,9 @@
                     android:fontFamily="@font/barlow_regular"
                     android:text="@string/numero_de_cuenta"
                     android:gravity="center_vertical"
-                    />
+                        android:textSize="@dimen/textSizeTextViewN"
+
+                        />
 
                 <EditText
                     android:id="@+id/editNumCount"
@@ -118,7 +123,7 @@
                     android:layout_weight="0.7"
                     android:padding="10dp"
                     android:inputType="number"
-                    android:textSize="15sp"
+                        android:textSize="@dimen/textSizeTextViewN"
                     android:maxLength="9"
                     android:textColor="@color/black"
                     android:fontFamily="@font/barlow_regular"
@@ -153,7 +158,7 @@
                     android:padding="10dp"
                     android:inputType="textEmailAddress"
                     android:autofillHints="emailAddress"
-                    android:textSize="15sp"
+                        android:textSize="@dimen/textSizeTextViewN"
                     android:textColor="@color/black"
                     android:fontFamily="@font/barlow_regular"
                     android:background="@drawable/background_edit_unselected"
@@ -167,7 +172,7 @@
                 android:layout_height="45dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textSize="15sp"
+                    android:textSize="@dimen/textSizeTextViewN"
                 android:text="@string/comprobar"
                 android:textColor="@color/white"
                 android:paddingBottom="4dp"

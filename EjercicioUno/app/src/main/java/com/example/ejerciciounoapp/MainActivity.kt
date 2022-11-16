@@ -275,8 +275,7 @@ class MainActivity : AppCompatActivity() {
         val scannerQRFragment = ScannerQRFragment()
         val fragmentManager: FragmentManager = supportFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        val transaction = supportFragmentManager.beginTransaction()
-
+        fragmentTransaction.setCustomAnimations(R.anim.up_anim, R.anim.hold,R.anim.out_anim, R.anim.hold)
         fragmentTransaction.replace(R.id.frameQR, scannerQRFragment).commit()
         isFragmentShow = true
     }
@@ -289,6 +288,8 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.findFragmentById(R.id.frameQR)?.let {
             supportFragmentManager.beginTransaction().remove(it).commit()
         };
+
+//        supportFragmentManager.popBackStack()
 
         binding.editName.setText(personInfo.name)
         binding.tvDate.text = personInfo.birthday

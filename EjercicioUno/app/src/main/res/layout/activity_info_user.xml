@@ -16,7 +16,7 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:textSize="@dimen/textSizeTextViewT"
                 android:text="@string/signes"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="15sp"
+                android:textSize="@dimen/textSizeTextViewN"
             android:fontFamily="@font/barlow_regular"
             android:padding="10dp"
             android:layout_margin="10dp"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="15sp"
+                android:textSize="@dimen/textSizeTextViewN"
             android:fontFamily="@font/barlow_regular"
             android:padding="10dp"
             android:layout_margin="10dp"
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="15sp"
+                android:textSize="@dimen/textSizeTextViewN"
             android:fontFamily="@font/barlow_regular"
             android:padding="10dp"
             android:layout_margin="10dp"
@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="15sp"
+                android:textSize="@dimen/textSizeTextViewN"
             android:fontFamily="@font/barlow_regular"
             android:padding="10dp"
             android:layout_margin="10dp"
@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="15sp"
+                android:textSize="@dimen/textSizeTextViewN"
             android:fontFamily="@font/barlow_regular"
             android:padding="10dp"
             android:layout_margin="10dp"
@@ -96,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="15sp"
+                android:textSize="@dimen/textSizeTextViewN"
             android:fontFamily="@font/barlow_regular"
             android:padding="10dp"
             android:layout_margin="10dp"
@@ -108,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="15sp"
+                android:textSize="@dimen/textSizeTextViewN"
             android:fontFamily="@font/barlow_regular"
             android:padding="10dp"
             android:layout_margin="10dp"
@@ -128,21 +128,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:padding="50dp"
-                />
+                    tools:ignore="ContentDescription" />
             <ImageView
                 android:id="@+id/imageChines"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:padding="50dp"
-                />
+                    tools:ignore="ContentDescription" />
         </LinearLayout>
-
-
-
-
-
-
+        
 
     </LinearLayout>
 
