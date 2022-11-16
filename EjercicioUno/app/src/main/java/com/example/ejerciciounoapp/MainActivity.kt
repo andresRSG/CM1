@@ -18,23 +18,24 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.example.ejerciciounoapp.databinding.ActivityMainBinding
 import com.google.gson.Gson
 import com.realpacific.clickshrinkeffect.applyClickShrink
 import com.takisoft.datetimepicker.DatePickerDialog
 import com.takisoft.datetimepicker.widget.DatePicker
 import com.vdx.designertoast.DesignerToast
-import kotlinx.android.synthetic.main.activity_info_user.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.tvDate
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
 
+
 class MainActivity : AppCompatActivity() {
 
     var mBDate = ""
+
+    private lateinit var binding: ActivityMainBinding
 
     public var isFragmentShow = false
     lateinit var dpd : DatePickerDialog
@@ -44,7 +45,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //initializing datePicker
         val cal = Calendar.getInstance()
@@ -60,7 +62,7 @@ class MainActivity : AppCompatActivity() {
     @Override
     override fun onResume(){
         super.onResume()
-        mprogress.visibility = View.GONE
+        binding.mprogress.visibility = View.GONE
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 
@@ -79,20 +81,20 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun listeners() {
-        btnVerify.applyClickShrink()
-        tvDate.setOnClickListener{
+        binding.btnVerify.applyClickShrink()
+        binding.tvDate.setOnClickListener{
             if(!dpd.isShowing) showDatePicker() }
 
-        btnVerify.setOnClickListener{
+        binding.btnVerify.setOnClickListener{
             if(verifyData()){
                 hideKeyboard(this)
-                mprogress.visibility = View.VISIBLE
+                binding.mprogress.visibility = View.VISIBLE
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 val parmetros= Bundle()
                 parmetros.putString("date",mBDate)
-                parmetros.putString("numCount",editNumCount.text.toString())
-                parmetros.putString("email", editEmail.text.toString())
-                parmetros.putString("name",editName.text.toString())
+                parmetros.putString("numCount",binding.editNumCount.text.toString())
+                parmetros.putString("email", binding.editEmail.text.toString())
+                parmetros.putString("name",binding.editName.text.toString())
 
 
                 val intent = Intent(this, InfoUserActivity::class.java).apply {
@@ -103,14 +105,14 @@ class MainActivity : AppCompatActivity() {
                     override fun onFinish() {
                         startActivity(intent)
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_right);
-                        mprogress.visibility = View.GONE
+                        binding.mprogress.visibility = View.GONE
                     }
                 }.start()
 
             }
         }
 
-        imageQr.setOnClickListener{
+        binding.imageQr.setOnClickListener{
             getPictureFromCameraAskingPermissions()
         }
     }
@@ -127,30 +129,30 @@ class MainActivity : AppCompatActivity() {
 
     private fun verifyData():Boolean{
 
-        if(editName.text.isEmpty()){
-            editName.error = getString(R.string.empty)
-            editName.requestFocus()
+        if(binding.editName.text.isEmpty()){
+            binding.editName.error = getString(R.string.empty)
+            binding.editName.requestFocus()
             DesignerToast.Warning(this, getString(R.string.info), getString(R.string.completa_el_campo),
                 Gravity.TOP, LENGTH_LONG,null)
             return false
         }
 
-        if(tvDate.text.isEmpty()){
-            tvDate.requestFocus()
+        if(binding.tvDate.text.isEmpty()){
+            binding.tvDate.requestFocus()
             DesignerToast.Warning(this, getString(R.string.info), getString(R.string.completa_el_campo),
                 Gravity.TOP, LENGTH_LONG,null)
             return false
         }else if(!dateIsCorrect()){
-            tvDate.requestFocus()
+            binding.tvDate.requestFocus()
             DesignerToast.Error(this,getString(R.string.info), getString(R.string.invalid_date),
                 Gravity.TOP, LENGTH_LONG,null)
             return false
         }
 
-       if(editNumCount.text.isNotEmpty()){
-           if(editNumCount.text.length < 9){
-               editNumCount.error = getString(R.string.empty)
-               editNumCount.requestFocus()
+       if(binding.editNumCount.text.isNotEmpty()){
+           if(binding.editNumCount.text.length < 9){
+               binding.editNumCount.error = getString(R.string.empty)
+               binding.editNumCount.requestFocus()
                DesignerToast.Error(this,getString(R.string.info), getString(R.string.invalid_digits),
                    Gravity.TOP, LENGTH_LONG,null)
                return false
@@ -170,21 +172,21 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun validatingEmail(): Boolean {
-        return if (editEmail.text.isNotEmpty()) {
+        return if (binding.editEmail.text.isNotEmpty()) {
             val regExpn = ("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]|[\\w-]{2,}))@"
                     + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
                     + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
                     + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
                     + "[0-9]{1,2}|25[0-5]|2[0-4][0-9]))|"
                     + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$")
-            if (!editEmail.getText().toString().matches(regExpn.toRegex())) {
-                if (editEmail.getText().toString().contains(".mx")) {
+            if (!binding.editEmail.getText().toString().matches(regExpn.toRegex())) {
+                if (binding.editEmail.getText().toString().contains(".mx")) {
                     true
                 } else {
                     //toast
                     DesignerToast.Error(this, getString(R.string.info), getString(R.string.invalid_email),
                         Gravity.TOP, LENGTH_LONG,null)
-                    editEmail.requestFocus()
+                    binding.editEmail.requestFocus()
                     false
                 }
             } else {
@@ -212,7 +214,7 @@ class MainActivity : AppCompatActivity() {
         dpd.show()
 
         dpd.setOnDateSetListener { view, year, month, dayOfMonth ->
-            tvDate.text =
+            binding.tvDate.text =
                 Editable.Factory.getInstance().newEditable("${dayOfMonth}/${month + 1}/${year}")
             mBDate = "${dayOfMonth}/${month + 1}/${year}"
         }
@@ -269,13 +271,13 @@ class MainActivity : AppCompatActivity() {
         val scannerQRFragment = ScannerQRFragment()
         val fragmentManager: FragmentManager = supportFragmentManager
         val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+        val transaction = supportFragmentManager.beginTransaction()
+
         fragmentTransaction.replace(R.id.frameQR, scannerQRFragment).commit()
         isFragmentShow = true
     }
 
-
-
-    public fun fillData(text:String){
+    fun fillData(text:String){
         isFragmentShow = false
 
         val gson = Gson()
@@ -284,10 +286,10 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction().remove(it).commit()
         };
 
-        editName.setText(personInfo.name)
-        tvDate.text = personInfo.birthday
-        editNumCount.setText(personInfo.noCount)
-        editEmail.setText(personInfo.email)
+        binding.editName.setText(personInfo.name)
+        binding.tvDate.text = personInfo.birthday
+        binding.editNumCount.setText(personInfo.noCount)
+        binding.editEmail.setText(personInfo.email)
         mBDate = personInfo.birthday
 
     }
