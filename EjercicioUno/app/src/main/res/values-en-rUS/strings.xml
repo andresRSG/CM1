@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="formulario">Form</string>
+    <string name="signes">Signs</string>
+    <string name="Nombre">Name</string>
+    <string name="fecha_de_nacimiento">Date of Birth</string>
+    <string name="numero_de_cuenta">Account Number</string>
+    <string name="correo">email</string>
+    <string name="comprobar">Check</string>
+    <string name="completa_el_campo">Fill in all fields</string>
+    <string name="signe_no_found">It is not possible to calculate its Chinese sign</string>
+    <string name="invalid_email">Invalid email. Check that your email is spelled correctly and try again.</string>
+    <string name="invalid_digits">The account number must be 9 digits long.</string>
+    <string name="invalid_date">Invalid date</string>
+
+
+    <string name="age_single">Your age is 1 year</string>
+    <string name="age_plu">Your age is %d  years</string>
+
+    <string name="capricornio">Capricorn</string>
+    <string name="acuario">Aquarium</string>
+    <string name="picis">Picis</string>
+    <string name="aries">Picis</string>
+    <string name="tauro">Taurus</string>
+    <string name="geminis">Gemini</string>
+    <string name="cancer">Cancer</string>
+    <string name="leo">Leo</string>
+    <string name="virgo">Virgo</string>
+    <string name="libra">Libra</string>
+    <string name="escorpion">Scorpion</string>
+
+    <string name="signe_zodiacal">Zodiac Sign: %s</string>
+    <string name="signe_chino">Chinese Sign: %s</string>
+
+
+</resources>

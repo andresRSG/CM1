@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EjercicioUnoApp</string>
+    <string name="app_name" translatable="false">EjercicioUnoApp</string>
     <string name="formulario">Formulario</string>
     <string name="signes">Signos</string>
     <string name="Nombre">Nombre</string>
@@ -12,8 +12,8 @@
     <string name="invalid_email">Correo inválido. Revise que su correo se encuentre escrito correctamente y vuelva a intentar.</string>
     <string name="invalid_digits">El número de cuenta debe ser de 9 digitos</string>
     <string name="invalid_date">"Fecha inválida"</string>
-    <string name="info">"Info"</string>
-    <string name="empty" />
+    <string name="info" translatable="false">"Info"</string>
+    <string name="empty" translatable="false" />
 
 
     <string name="age_single">Tu edad es de 1 año</string>
